@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/CSS/style.css">
+    <title>Ash cart</title>
+  </head>
+  <body>
+    <!-- navigation ----------------------->
+       
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Ashcart</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto ">
+          <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+          {% if request.user.is_authenticated %}  
+          <a class="nav-link" aria-current="page" href="#">{{request.user}}</a>
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+
+          {% else %}
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+          {% endif %}
+          <a class="nav-link" href="{% url 'collections' %}">Collections</a>
+          <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          <a class="nav-link" href="{% url 'favviewpage' %}">Favourite</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+      <!-- Slider ----------------------->
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div> 
+      </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/static/images/2.jpg" class="d-block w-100" alt="Slide 1">
+          </div>
+          <div class="carousel-item">
+            <img src="/static/images/3.jpg" class="d-block w-100" alt="Slide 2">
+          </div>
+          <div class="carousel-item">
+            <img src="/static/images/4.jpg" class="d-block w-100" alt="Slide 3">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      
+<!-- Main ----------------------->
+<section class="bg-light py-4 my-5">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+          <h1>Trending</h1>
+          </div>
+      {% for item in products %}
+    <div class="col-md-4 col-lg-3">
+      <div class="card my-3">
+        <img src="{{item.image.url}}" class="card-image-top" alt="">
+        <a href="{% url 'product_details' item.category.name item.name %}">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{item.name}}</h5>
+          <p class="card-text">
+              <span class="float-start old_price"><s>Rs.{{ item.original_price | stringformat:'d' }}</s></span>
+              <span class="float-end new_price">Rs.{{ item.selling_price }}</span>
+          </p>
+        </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+</section>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+   
+  </body>
+  <!---Footer------------------------------->
+  <footer class="text-center text-lg-start bg-dark text-white">
+    <section class="container d-flex justify-content-center justify-content-lg-between p-4">
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <div>
+        <a href="aksh.moorthy12@gmail.com" class="me-4 text-reset"><i class="fa fa-google"></i></a>
+        <a href="https://www.linkedin.com/in/akashmoorthy12/" class="me-4 text-reset"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/AKASHMOORTHY" class="me-4 text-reset"><i class="fa fa-github"></i></a>
+      </div>
+    </section>
+  
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <div class="row mt-3">
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4"><i class="fa fa-cart-plus"></i> ShopKart</h6>
+            <p>
+              Ashkart.com  Powering India, Powering You!
+               
+            </p>
+          </div>
+  
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">Make Money with Us</h6>
+            <p><a href="#!" class="text-reset">Sell on AshKart</a></p>
+            <p><a href="#!" class="text-reset">Advertise Your Products</a></p>
+            <p><a href="#!" class="text-reset">Become an Affiliate</a></p>          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
+            <p><a href="#!" class="text-reset">FAQ</a></p>
+            <p><a href="#!" class="text-reset">Feedback</a></p>
+            <p><a href="https://akashmoorthy.github.io/ogportfolio/" class="text-reset">About Us</a></p>
+          </div>
+          
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4"> Contact</h6>
+            <p><i class="fa fa-home"></i> Akash Moorthy</p>
+            <p><i class="fa fa-envelope"></i> aksh.moorthy12@gmail.com</p>
+            <p><i class="fa fa-phone"></i> + 91 7397654819</p>
+          </div>
+  
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4">
+      &copy;  2024 Copyright <a class="text-reset fw-bold" href=""> Akash</a>
+    </div>
+  </footer>
+</html>
